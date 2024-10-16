@@ -79,6 +79,7 @@ export function* pseudoWords(letters: Set<string>, maxWords = Infinity, excluded
 
 export function pick<T>(amount: number, gen: () => Generator<T, void, unknown>): T[] {
 	const elements = [...gen()];
+	if(!elements.length) return [];
 	const additional = new Array(amount - elements.length).fill(null).map(_ => elements[Math.floor(Math.random() * elements.length)]);
 	return elements.concat(additional);
 }
