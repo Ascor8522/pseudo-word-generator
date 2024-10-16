@@ -57,7 +57,7 @@ export function App() {
 								placeholder="Word count"
 								value={wordCount}
 								min={1}
-								onInput={e => setWordCount(e.currentTarget.valueAsNumber || 1)}
+								onInput={e => setWordCount(Math.min(0, e.currentTarget.valueAsNumber || 0))}
 							/>
 							<label class="flex">
 								<input
