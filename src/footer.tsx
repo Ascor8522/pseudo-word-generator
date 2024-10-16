@@ -8,7 +8,9 @@ export default function Footer({ }: FooterProps) {
 				<p class="text-current">Made by Ascor8522</p>
 			</div>
 			<nav class="grid-flow-col gap-4 md:place-self-center md:justify-self-end">
-				<a href="https://github.com/Ascor8522/pseudo-word-generator">
+				<a
+					href="https://github.com/Ascor8522/pseudo-word-generator"
+					aria-label="The repository for the Pseudo Word Generaor webapp on GitHub.">
 					<GithubLogo />
 				</a>
 			</nav>

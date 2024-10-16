@@ -1,5 +1,5 @@
 import { useState } from "preact/hooks";
-import Footer from "./footer";
+import Footer from "./footer.tsx";
 import { pick, pseudoWords, ruleApplies, type Rules } from "./word-gen.ts";
 
 const rules: Record<Rules, string> = {
@@ -36,7 +36,9 @@ export function App() {
 			<h1 class="grow-0 shrink-0 m-0 ">Pseudo Word Generator</h1>
 
 			<div class="grow-0 shrink-0 relative h-16">
-				<details class="absolute top-0 left-0 shrink collapse collapse-plus bg-base-200" style={{ width: "calc(50% - 1rem)" }}>
+				<details
+					class="absolute top-0 left-0 shrink collapse collapse-plus bg-base-200"
+					style={{ width: "calc(50% - 1rem)" }}>
 					<summary class="collapse-title">
 						<h2 class="m-0">Inputs</h2>
 					</summary>
@@ -77,7 +79,9 @@ export function App() {
 					</div>
 				</details>
 
-				<details class="absolute top-0 right-0 shrink collapse collapse-plus bg-base-200" style={{ width: "calc(50% - 1rem)" }}>
+				<details
+					class="absolute top-0 right-0 shrink collapse collapse-plus bg-base-200"
+					style={{ width: "calc(50% - 1rem)" }}>
 					<summary class="collapse-title">
 						<h2 class="m-0">Rules</h2>
 					</summary>
@@ -115,7 +119,11 @@ export function App() {
 					</b>
 				</p>
 				{<ul class="grow shrink-0 columns-5">
-					{words.map((word, i) => <li key={word + i + words.length} class="text-2xl">{word}</li>)}
+					{words.map((word, i) => <>
+						<li
+							key={word + i + words.length}
+							class="text-2xl">{word}</li>
+					</>)}
 				</ul>}
 			</div>
 
