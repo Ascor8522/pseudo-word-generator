@@ -31,6 +31,13 @@ export function App() {
 	const appliedRules = ruleApplies(new Set(letters), excludedWords);
 	const activeRulesCount = Object.values(appliedRules).filter(Boolean).length;
 
+	const closeDetails = (e: FocusEvent) => {
+		const ct = e.currentTarget as HTMLDetailsElement;
+		const rt = e.relatedTarget as HTMLElement | null;
+		if(rt && ct.contains(rt)) return;
+		ct.toggleAttribute("open", false);
+	};
+
 	return (
 		<div class="prose max-w-full w-screen h-screen p-8 flex flex-col gap-8">
 			<h1 class="grow-0 shrink-0 m-0 ">Pseudo Word Generator</h1>
@@ -38,50 +45,65 @@ export function App() {
 			<div class="grow-0 shrink-0 relative h-16">
 				<details
 					class="absolute top-0 left-0 shrink collapse collapse-plus bg-base-200"
-					style={{ width: "calc(50% - 1rem)" }}>
+					style={{ width: "calc(50% - 1rem)" }}
+					onBlur={closeDetails}>
 					<summary class="collapse-title">
 						<h2 class="m-0">Inputs</h2>
 					</summary>
 					<div class="collapse-content">
 						<div class="grid grid-cols-3 gap-4 items-center">
-							<input
-								type="text"
-								class="input input-bordered w-full max-w-xs"
-								placeholder="Letters"
-								value={letterInput}
-								onInput={e => setLetterInput(e.currentTarget.value)}
-							/>
-							<input
-								type="number"
-								class="input input-bordered w-full max-w-xs"
-								placeholder="Word count"
-								value={wordCount}
-								min={1}
-								onInput={e => setWordCount(Math.min(0, e.currentTarget.valueAsNumber || 0))}
-							/>
-							<label class="flex">
+							<label>
+								Letters
 								<input
-									type="checkbox"
-									class="checkbox checkbox-primary"
-									checked={repeat}
-									onInput={e => setRepeat(e.currentTarget.checked)}
+									type="text"
+									class="input input-bordered w-full max-w-xs"
+									placeholder="E.g. f, a, m, h, t"
+									value={letterInput}
+									onInput={e => setLetterInput(e.currentTarget.value)}
 								/>
-								&nbsp;
-								Repeat words
 							</label>
-							<textarea
-								class="textarea textarea-bordered w-full col-span-3"
-								placeholder="Excluded words (separated by non-letter)"
-								value={excludedWordsInput}
-								onInput={e => setExcludedWordsInput(e.currentTarget.value)}
-							/>
+							<label>
+								Word count
+								<input
+									type="number"
+									class="input input-bordered w-full max-w-xs"
+									placeholder="E.g. 20"
+									value={wordCount}
+									min={1}
+									onInput={e => setWordCount(Math.max(1, e.currentTarget.valueAsNumber || 1))}
+								/>
+							</label>
+							<div>
+								<br />
+								<label class="flex">
+									<input
+										type="checkbox"
+										class="checkbox checkbox-primary"
+										checked={repeat}
+										onInput={e => setRepeat(e.currentTarget.checked)}
+									/>
+									&nbsp;
+									Repeat words
+								</label>
+							</div>
+							<label class="col-span-3">
+								Excluded words
+								<br />
+								<textarea
+									class="textarea textarea-bordered w-full"
+									placeholder="E.g. banana, apple, orange"
+									value={excludedWordsInput}
+									onInput={e => setExcludedWordsInput(e.currentTarget.value)}
+								/>
+							</label>
 						</div>
 					</div>
 				</details>
 
 				<details
 					class="absolute top-0 right-0 shrink collapse collapse-plus bg-base-200"
-					style={{ width: "calc(50% - 1rem)" }}>
+					style={{ width: "calc(50% - 1rem)" }}
+					onBlur={closeDetails}>
 					<summary class="collapse-title">
 						<h2 class="m-0">Rules</h2>
 					</summary>
